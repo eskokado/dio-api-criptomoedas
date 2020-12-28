@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
   <title>CoinMarketCap</title>
 </head>
 <body>
+  <div id="coins"></div>
   <script type="text/javascript">
     // My Api Key
     var apiKey = {
@@ -18,7 +20,38 @@
         return response.json();
       })
       .then((api) => {
-        console.log(api);
+        var texto = "";
+        // Get 10 coins ans symbols
+        for (let i = 0; i < 12; i++) {
+          // Show API information
+          texto = texto + `
+            <div class="media">
+              <img src="https://cdn.pixabay.com/photo/2018/02/02/13/51/bitcoin-3125488_960_720.png" class="align-self-center mr-3" alt="coin" width="60" height="60">
+              <div class="media-body">
+                <h5 class="mt-2">${api.data[i].name}</h5>
+                <p>${api.data[i].symbol}</p>
+                <p>${new Date(api.data[i].first_historical_data).toLocaleString('pt-BR')}</p>
+              </div>
+            </div>
+          `;
+        }
+
+        for (let i = 0; i < 10; i++) {
+          // Show API information
+          texto = texto + `
+            <div class="media">
+              <img src="https://cdn.pixabay.com/photo/2018/02/02/13/51/bitcoin-3125488_960_720.png" class="align-self-center mr-3" alt="coin" width="60" height="60">
+              <div class="media-body">
+                <h5 class="mt-2">${api.data[i].name}</h5>
+                <p>${api.data[i].symbol}</p>
+                <p>${new Date(api.data[i].first_historical_data).toLocaleString('pt-BR')}</p>
+              </div>
+            </div>
+          `;
+        }
+
+        document.getElementById("coins").innerHTML = texto;
+
       })
       .catch((error) => {
         console.log(error.message);
